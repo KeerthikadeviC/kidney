@@ -1,21 +1,19 @@
 import streamlit as st
 import numpy as np
-import pickle
+import joblib  # Replaced pickle with joblib
 from sklearn.preprocessing import StandardScaler
 
-# Load the saved model and scaler
+# Load the saved model and scaler using joblib
 @st.cache_resource
 def load_model():
-    with open("ckd_model.pkl", "rb") as f:
-        model = pickle.load(f)
+    model = joblib.load("ckd_model.pkl")  # Assumes you saved with joblib.dump()
     return model
 
 @st.cache_resource
 def load_scaler():
-    # You should save and load scaler similarly as model if saved separately
-    # For demo, we'll recreate and fit scaler on some typical normal values (not ideal)
+    # Ideally, load the actual trained scaler from a file
+    # For demo purposes, we'll simulate a scaler here
     scaler = StandardScaler()
-    # Typical normal ranges for scaling fit (replace with your training data)
     sample_data = np.array([
         [1.0, 0, 1.020, 14.0, 44, 5.0, 80, 120, 15, 1],
         [2.0, 1, 1.010, 12.5, 40, 4.8, 85, 140, 30, 0]
